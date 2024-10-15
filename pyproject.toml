@@ -1,0 +1,76 @@
+[build-system]
+requires = ["setuptools>=61", "wheel", "Cython", "numpy", "torch"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "graph_ebm"
+dynamic = ["version"]
+authors = [{ name = "Dominik Fuchsgruber", email = "d.fuchsgruber@tum.de" }]
+requires-python = ">=3.11"
+license = { text = "MIT" }
+
+dependencies = [
+    # PyTorch etc.
+    "torchmetrics",
+    "torchvision",
+    "einops",
+    "typeguard <= 2.13.3", # we can not afford any more recent version, as it clashes with jaxtyped...
+    "jaxtyping",
+    "torch_geometric",
+    "torch-scatter",
+    "torch_sparse",
+    "pyro-ppl",
+    "scikit-learn-extra",
+    "ogb",
+    "tinydb",
+
+    # General science & ml
+    "numpy",
+    "scipy",
+    "scikit-learn",
+    "pandas",
+
+    # Plotting & visualization
+    "matplotlib",
+    "seaborn",
+
+    # wandb
+    "wandb >= 0.13",
+
+    # Utilities
+    "tqdm",
+    "rich",
+    "ipython",
+    "ipdb",
+    "jupyterlab",
+    "ipympl",
+    "dacite",
+
+    "sentence-transformers",
+
+    # appropriate seml version
+    "seml @ git+https://github.com/TUM-DAML/seml.git",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff", "pre-commit"]
+
+
+[tool.isort]
+profile = "black"
+known_third_party = ["wandb"]
+
+[tool.black]
+line-length = 90
+target-version = ["py311"]
+
+[tool.ruff.lint]
+ignore = ['F722', 'F821']
+
+[tool.ruff.lint.per-file-ignores]
+# import order in main files needs to include `setup` call
+'main.py' = ['E402']
+'generate_data.py' = ['E402']
+
+[tool.setuptools]
+packages = ["graph_uq"]

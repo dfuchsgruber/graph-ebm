@@ -20,6 +20,12 @@ We provide a simple to use wrapper you can use in your codebase to include GEBM 
 from graph_uq.gebm import GraphEBMWrapper
 
 gebm = GraphEBMWrapper()
+gebm.fit(logits, embeddings, edge_index, y, mask_train)
+gebm.get_uncertainty(
+    logits_unpropagated=logits_eval_no_network,
+    embeddings_unpropagated=embeddings_eval_no_network,
+    edge_index=edge_index,
+)
 ```
 
 Its `fit` and `get_uncertainty` methods fit to training data and evaluate on inference data respectively. Minimal working examples are provided in `example.ipynb`. You can also use part of our framework to implement datasets and / or models and then run GEBM (see the notebook).
